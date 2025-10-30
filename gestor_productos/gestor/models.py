@@ -13,3 +13,13 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class CustomUser(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    is_staff = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username

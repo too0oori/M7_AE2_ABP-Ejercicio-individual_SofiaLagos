@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Productos en Inventario{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+        <h2 class="fw-bold texto-muted">
+            <i class="<fa-solid fa-shelves me-2 text-muted"></i> Inventario
+        </h2>
+        {% if perms.producto.add.producto %}
+        <a href="{% url '' %}" class="btn btn-success shadow-sm">
+            <i class="fas fa-plus me-2"></i> Registrar Nuevo Evento
+        </a>
+        {% endif %}
+    </div>
+    
+    {% if producto %}
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                       
+                        <div class="card-text text-muted mb-1">
+                            <i class="fas fa-tag me-2"></i>
+                            Precio: {{ producto.precio }}
+                        </div>
+
+                        <div class="card-text text-muted mb-1">
+                            <i class="fas fa-tag me-2"></i>
+                            Stock: {{ producto.stock }}
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="card-text text-muted mb-1">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                Fecha de Creacion: {{ producto.fecha }}
+                            </p>
+                            {% if producto.descripcion %}
+                            <p class="card-text small text-truncate" title="{{ producto.descripcion }}">
+                                Descripción: {{ producto.descripcion|default:"Sin descripción." }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                       
+                        <div class="btn-group" role="group">
+                            {% if puede_editar %}
+                                <a href="{% url 'editar_evento' evento.pk %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                            {% endif %}
+                        
+                            {% if puede_eliminar %}
+                                <a href="{% url 'eliminar_evento' evento.pk %}" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center shadow-sm" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> ¡Aún no hay productos!</h4>
+            <p class="mb-0">No hay productos disponibles en el inventario.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}
