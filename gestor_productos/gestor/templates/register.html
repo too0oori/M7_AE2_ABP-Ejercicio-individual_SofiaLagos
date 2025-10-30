@@ -1,22 +1,25 @@
-{% extends 'base.html'%}
-
+{% extends 'base.html' %}
+{% block title %}Registro{% endblock %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Registrate</h5>
-                    <form class="form-signin" method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Registrarse</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-4 fw-semibold">Crear cuenta</h3>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+      </div>
+    </form>
+
+    <hr class="my-4">
+    <p class="text-center mb-0">
+      ¿Ya tienes una cuenta?
+      <a href="{% url 'login' %}" class="text-decoration-none">Inicia sesión</a>
+    </p>
+  </div>
 </div>
 
-{% endblock content %}
+{% endblock %}
