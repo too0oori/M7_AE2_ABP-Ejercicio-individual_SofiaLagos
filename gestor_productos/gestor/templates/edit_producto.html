@@ -2,17 +2,30 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
+        <div class="col-md-8">
+            <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Editar producto</h4>
+                    <h4 class="mb-0">✏️ Editar Producto</h4>
                 </div>
                 <div class="card-body">
+                    {% if form.instance.pk %}
+                    <div class="alert alert-info">
+                        <strong>ℹ️ Información:</strong> Los placeholders muestran los valores actuales.
+                    </div>
+                    {% endif %}
+                    
                     <form method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
                         
-                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{% url 'productos' %}" class="btn btn-secondary">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                💾 Guardar Cambios
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
