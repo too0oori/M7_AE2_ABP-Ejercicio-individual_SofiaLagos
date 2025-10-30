@@ -1,8 +1,91 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
+{% block title %}Inicio - Gestor de Productos{% endblock %}
 
 {% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="text-center my-5 py-5">
+        <h1 class="display-4 fw-bold text-primary mb-3">
+            <i class="fas fa-box-open me-3"></i>Gestor de Productos
+        </h1>
+        <p class="lead text-muted mb-4">
+            Sistema de gestión de inventario simple y eficiente
+        </p>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'productos' %}" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-boxes-stacked me-2"></i>Ver Inventario
+            </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                </a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Registrarse
+                </a>
+        {% endif %}
+    </div>
 
-<h2> Bienvenidos al Inicio </h2>
-<p> Bienvenido a la página de Home </p>
+    <!-- Features Section -->
+    <div class="row g-4 my-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="card-body">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-inventory"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Control de Inventario</h5>
+                    <p class="card-text text-muted">
+                        Gestiona tu inventario de forma eficiente y mantén el control de tu stock
+                    </p>
+                </div>
+            </div>
+        </div>
 
-{% endblock content %}
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="card-body">
+                    <div class="display-4 text-success mb-3">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Fácil Administración</h5>
+                    <p class="card-text text-muted">
+                        Agrega, edita y elimina productos con solo unos clics
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="card-body">
+                    <div class="display-4 text-info mb-3">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Seguro y Confiable</h5>
+                    <p class="card-text text-muted">
+                        Sistema con autenticación y permisos para proteger tu información
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    <!-- Quick Stats -->
+    <div class="row g-3 my-5">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <h5 class="text-muted mb-3">Bienvenido/a, <strong>{{ user.username }}</strong></h5>
+                    <p class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Comienza gestionando tus productos desde el menú superior
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

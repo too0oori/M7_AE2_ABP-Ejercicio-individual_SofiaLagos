@@ -7,40 +7,105 @@
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
+
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">Gestión</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <!-- Logo/Brand -->
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                <i class="fas fa-box-open me-2"></i>
+                Gestor de Productos
+                </a>
+
+                <!-- Toggler para móvil -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'productos' %}">Productos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'register' %}">Registrarse</a>
-                            </li>
+
+                <!-- Contenido del navbar -->
+                <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Links principales -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">
+                        <i class="fas fa-home me-1"></i>Inicio
+                    </a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'productos' %}">
+                        <i class="fas fa-boxes-stacked me-1"></i>Inventario
+                    </a>
+                    </li>
+                    
+                    {% if perms.gestor.add_producto %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_producto' %}">
+                        <i class="fas fa-plus-circle me-1"></i>Nuevo Producto
+                    </a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+
+                <!-- Usuario -->
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>{{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        {% if user.is_staff %}
+                        <li>
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">
+                            <i class="fas fa-cog me-2"></i>Panel Admin
+                        </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         {% endif %}
+                        <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                        </a>
+                        </li>
                     </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <i class="fas fa-user-plus me-1"></i>Registrarse
+                    </a>
+                    </li>
+                    {% endif %}
+                </ul>
                 </div>
-       </div>
-    </nav>             
+            </div>
+        </nav> 
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
         <div class="container">
+
                 {% block content %}
                 
                 
                 {% endblock %}
         </div>       
+        <script src="https://kit.fontawesome.com/9ff5f4d9c4.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

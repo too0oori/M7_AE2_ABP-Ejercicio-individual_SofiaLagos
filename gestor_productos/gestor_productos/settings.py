@@ -67,12 +67,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# Configuración de URLs de autenticación
+LOGIN_URL = 'login'  # o LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
-
-LOGIN_REDIRECT_URL = 'gestor/login/'
-
-LOGOUT_REDIRECT_URL = 'gestor/home/'
-
+STATIC_URL = '/static/'
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

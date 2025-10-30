@@ -7,9 +7,14 @@
         <h2 class="fw-bold texto-muted">
             <i class="fa-solid fa-boxes-stacked me-2 text-muted"></i> Inventario
         </h2>
-        <a href="#" class="btn btn-success shadow-sm">
-            <i class="fas fa-plus me-2"></i> Registrar nuevo producto
-        </a>
+        {% if perms.gestor.add_producto %}
+        <form method="POST" action="{% url 'add_producto' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i> Agregar Producto
+            </button>
+        </form>
+        {% endif %}
     </div>
     
     {% if productos %}
@@ -22,6 +27,21 @@
                         <p class="card-text text-muted">Descripcion: {{ producto.descripcion }}</p>
                         <p class="card-text text-muted">Precio: {{ producto.precio }}</p>
                         <p class="card-text text-muted">Stock: {{ producto.stock }}</p>
+                    </div>
+                    <div class="card-footer">
+                        {% if perms.gestor.change_producto %}
+                        <form method="POST" action="{% url 'edit_producto' producto.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="fas fa-edit me-2"></i> Editar
+                            </button>
+                        </form>
+                        {% endif %}
+                        {% if perms.gestor.delete_producto %}
+                        <a href="{% url 'delete_producto' producto.id %}" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i> Eliminar
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
