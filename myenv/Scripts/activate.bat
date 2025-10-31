@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\casa\Documents\BOOTCAMP\M6_AE6_ABP-Ejercicio individual\M6_AE6_ABP-Ejercicio-individual\myenv
+set VIRTUAL_ENV=C:\Users\casa\Documents\BOOTCAMP\M7_AE2_ABP\M7_AE2_ABP-Ejercicio-Individual\myenv
 
 if not defined PROMPT set PROMPT=$P$G
 
