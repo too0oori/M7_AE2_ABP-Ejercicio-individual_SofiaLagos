@@ -1,0 +1,75 @@
+/* === NAVBAR FIJA === */
+/* Ajusta solo el contenido, sin empujar demasiado */
+body {
+  padding-top: 56px; /* espacio exacto para navbar Bootstrap */
+}
+
+/* Evita que el navbar se estire o colapse */
+.navbar {
+  min-height: 56px;
+}
+
+/* === FORMULARIOS === */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="number"],
+form select,
+form textarea {
+  width: 100%;
+  height: 45px;
+  border-radius: 0.4rem;
+  border: 1px solid #ced4da;
+  padding: 10px 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+form textarea {
+  height: auto;
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Efecto visual al hacer focus */
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* Botones dentro de formularios */
+form .btn {
+  border-radius: 0.4rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* === TARJETAS === */
+.card {
+  border-radius: 0.75rem;
+  border: none;
+}
+
+/* === ESPACIADOS === */
+form p {
+  margin-bottom: 1rem;
+}
+
+
+/* === RESPONSIVE === */
+@media (max-width: 576px) {
+  form input,
+  form select,
+  form textarea {
+    height: 50px;
+    font-size: 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+}
+

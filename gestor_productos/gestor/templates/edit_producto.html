@@ -1,35 +1,44 @@
 {% extends 'base.html' %}
+{% block title %}Editar Producto{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">✏️ Editar Producto</h4>
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-pen-to-square me-2"></i>
+                    <h4 class="mb-0 fw-semibold">Editar Producto</h4>
                 </div>
-                <div class="card-body">
+
+                <div class="card-body py-4">
                     {% if form.instance.pk %}
-                    <div class="alert alert-info">
-                        <strong>ℹ️ Información:</strong> Los placeholders muestran los valores actuales.
+                    <div class="alert alert-info small text-start mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Los campos muestran los valores actuales del producto.
                     </div>
                     {% endif %}
-                    
-                    <form method="POST">
+
+                    <form method="POST" novalidate>
                         {% csrf_token %}
                         {{ form.as_p }}
-                        
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                            <a href="{% url 'productos' %}" class="btn btn-secondary">
-                                Cancelar
+
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a href="{% url 'productos' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i> Cancelar
                             </a>
-                            <button type="submit" class="btn btn-primary">
-                                💾 Guardar Cambios
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-2"></i> Guardar Cambios
                             </button>
                         </div>
                     </form>
+                </div>
+
+                <div class="card-footer bg-light text-muted small text-center">
+                    Última modificación: {{ form.instance.updated_at|date:"d/m/Y H:i" }}
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}

@@ -10,15 +10,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700,800&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                <i class="fa-solid fa-calendar-days me-2"></i> <span>Agenda</span>
+                <i class="fa-solid fa-calendar-days me-2"></i> <span>Inventario</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -33,12 +36,12 @@
                         </li>
                         {% if perms.gestor.add_productos %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'add_producto' %}">Registrar Eventos</a>
+                            <a class="nav-link" href="{% url 'add_producto' %}">Añadir productos</a>
                         </li>
                         {% endif %}
                         {% if perms.gestor.view_productos %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'productos' %}">Eventos</a>
+                            <a class="nav-link" href="{% url 'productos' %}">Inventario</a>
                         </li>
                         {% endif %}
                         <li class="nav-item dropdown">
@@ -75,24 +78,23 @@
         </div>
     </nav>
 
-    <!-- Mensajes -->
-    {% if messages %}
-    <div class="container mt-5 pt-4">
-        {% for message in messages %}
-            <div class="alert 
-                {% if message.tags == 'error' %}alert-danger
-                {% elif message.tags == 'info' %}alert-info
-                {% else %}alert-{{ message.tags }}{% endif %} 
-                alert-dismissible fade show mt-3" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
     <!-- Contenido principal -->
-    <main class="container my-5 pt-5 flex-grow-1">
+    <main class="container flex-grow-1 mt-3">
+            <!-- Mensajes -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert 
+                    {% if message.tags == 'error' %}alert-danger
+                    {% elif message.tags == 'info' %}alert-info
+                    {% else %}alert-{{ message.tags }}{% endif %} 
+                    alert-dismissible fade show mt-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </main>
@@ -104,5 +106,34 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para desvanecer alertas -->
+    <script>
+    // Espera a que cargue toda la página
+    document.addEventListener("DOMContentLoaded", function () {
+        // Selecciona todas las alertas de Bootstrap
+        const alerts = document.querySelectorAll(".alert");
+
+        alerts.forEach((alert) => {
+        setTimeout(() => {
+            // Agrega una clase para desvanecer
+            alert.classList.add("fade");
+            alert.classList.remove("show");
+        }, 3000); // 3 segundos
+
+        // Opcional: eliminar del DOM después de desaparecer
+        setTimeout(() => {
+            alert.remove();
+        }, 4000);
+        });
+    });
+    </script>
+
+
+    </script>
+
+
+
+
 </body>
 </html>
